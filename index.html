@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shade Theory Window Film</title>
+<meta name="description" content="Shade Theory — automotive window tint in Phoenix, AZ. Carbon, ceramic and IR ceramic film, Arizona-legal shades, lifetime warranty.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@500;700;900&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Layout: a glass-and-glare page — hard white sunlight everywhere except where film sits; film swatches are the only dark objects */
+  :root{
+    --glare:#F5F6F6;
+    --ink:#121417;
+    --smoke:#5B626A;
+    --film:#0D1013;
+    --line:#D9DCDE;
+    --sun:#F0950C;
+    --display:"Darker Grotesque","Arial Narrow",sans-serif;
+    --body:"Figtree",system-ui,sans-serif;
+    --mono:"DM Mono",ui-monospace,Consolas,monospace;
+    --g:clamp(16px,4vw,60px);
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--glare);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--sun);outline-offset:3px}
+  .wrap{padding-inline:var(--g);max-width:1380px;margin-inline:auto}
+  .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--smoke)}
+
+  .heatbar{background:var(--ink);color:#C9CDD1;font-family:var(--mono);font-size:12px}
+  .heatbar .wrap{display:flex;gap:28px;height:34px;align-items:center;overflow-x:auto;white-space:nowrap}
+  .heatbar b{color:var(--sun);font-weight:500}
+
+  header.nav .wrap{display:flex;align-items:center;gap:32px;height:76px;border-bottom:1px solid var(--line)}
+  .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .logo i{width:30px;height:30px;background:linear-gradient(90deg,var(--film) 0 33%,#4A5057 33% 66%,#A8AEB4 66%)}
+  .logo span{font-family:var(--display);font-weight:900;font-size:30px;line-height:1;letter-spacing:-.01em}
+  header.nav nav{display:flex;gap:28px;margin-left:auto;font-weight:500;font-size:15px}
+  header.nav nav a{text-decoration:none;color:var(--smoke)}
+  header.nav nav a:hover{color:var(--ink)}
+  .btn{display:inline-block;background:var(--ink);color:var(--glare);font-weight:600;font-size:15px;padding:12px 20px;text-decoration:none;border:0;cursor:pointer;font-family:var(--body)}
+  .btn.line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr);gap:clamp(28px,4vw,64px);padding-block:clamp(36px,6vw,80px) 56px;align-items:start}
+  .hero h1{font-family:var(--display);font-weight:900;font-size:clamp(58px,8.6vw,138px);line-height:.8;letter-spacing:-.02em;text-wrap:balance}
+  .hero h1 .deg{color:var(--sun)}
+  .hero p{max-width:40ch;margin-top:26px;font-size:18px;color:#33383E}
+  .hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+
+  /* window demo */
+  .demo{min-width:0}
+  .window{position:relative;aspect-ratio:16/9;max-width:100%;clip-path:polygon(10% 0,100% 0,100% 100%,0 100%,0 34%);background:#9FCBEA;overflow:hidden}
+  .window svg.scene{position:absolute;inset:0;width:100%;height:100%}
+  .film{position:absolute;inset:0;background:var(--film);transition:opacity .25s ease}
+  .film::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.14) 48%,transparent 56%)}
+  .frame-tag{position:absolute;right:14px;bottom:12px;font-family:var(--mono);font-size:11px;color:#fff;background:rgba(0,0,0,.35);padding:4px 8px;letter-spacing:.06em}
+  .controls{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 28px;margin-top:22px;align-items:end}
+  .slider-wrap label{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .vlt-read{font-family:var(--display);font-weight:900;font-size:56px;line-height:.8}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;margin-top:10px;cursor:pointer}
+  input[type=range]::-webkit-slider-runnable-track{height:10px;background:linear-gradient(90deg,var(--film),#C8CDD1)}
+  input[type=range]::-moz-range-track{height:10px;background:linear-gradient(90deg,var(--film),#C8CDD1)}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:28px;background:var(--sun);margin-top:-9px;border:2px solid var(--glare)}
+  input[type=range]::-moz-range-thumb{width:12px;height:26px;background:var(--sun);border:2px solid var(--glare);border-radius:0}
+  .ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--smoke);margin-top:4px}
+  .films{display:flex;border:1.5px solid var(--ink)}
+  .films button{all:unset;cursor:pointer;padding:10px 14px;font-weight:600;font-size:14px;white-space:nowrap}
+  .films button + button{border-left:1.5px solid var(--ink)}
+  .films button[aria-pressed=true]{background:var(--ink);color:var(--glare)}
+  .films button:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
+  .readouts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:22px;border-top:1.5px solid var(--ink)}
+  .readouts > div{padding:14px 16px 0 0;min-width:0}
+  .readouts > div + div{padding-left:16px;border-left:1px solid var(--line)}
+  .readouts .v{font-family:var(--display);font-weight:900;font-size:40px;line-height:1;margin-top:6px}
+  .readouts .s{font-size:13.5px;color:var(--smoke);margin-top:4px}
+  .legal-yes{color:#1E7A43} .legal-no{color:#C2361F}
+  .fine{font-size:12.5px;color:var(--smoke);margin-top:14px;max-width:70ch}
+
+  section{padding-block:clamp(64px,9vw,120px)}
+  .head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:end;margin-bottom:44px}
+  .head h2{font-family:var(--display);font-weight:900;font-size:clamp(44px,5.8vw,88px);line-height:.85;letter-spacing:-.015em;text-wrap:balance}
+  .head p{color:#33383E;max-width:52ch}
+
+  /* swatch book */
+  .book{background:var(--ink);color:var(--glare)}
+  .book .head p{color:#B9BEC3}
+  .book .lbl{color:#8E959C}
+  .swatches{display:flex;align-items:flex-end;gap:0;overflow-x:auto;padding-bottom:8px}
+  .sw{all:unset;cursor:pointer;flex:1 0 128px;height:340px;position:relative;margin-left:-18px;transform-origin:bottom center;transition:transform .2s ease;border:1px solid rgba(255,255,255,.18);display:flex;flex-direction:column;justify-content:space-between;padding:16px 14px 16px 30px}
+  .sw:first-child{margin-left:0}
+  .sw:hover,.sw:focus-visible{transform:translateY(-14px)}
+  .sw:focus-visible{outline:2px solid var(--sun)}
+  .sw .pct{font-family:var(--display);font-weight:900;font-size:58px;line-height:.8}
+  .sw .meta{font-family:var(--mono);font-size:11px;line-height:1.7;opacity:.9}
+  .sw .hole{position:absolute;left:10px;bottom:16px;width:10px;height:10px;border-radius:50%;background:var(--ink);box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}
+
+  /* compare */
+  .compare{overflow-x:auto;border-top:1.5px solid var(--ink)}
+  .compare table{width:100%;border-collapse:collapse;min-width:720px;font-variant-numeric:tabular-nums}
+  .compare th,.compare td{text-align:left;padding:16px 14px 16px 0;border-bottom:1px solid var(--line);vertical-align:top}
+  .compare thead th{font-family:var(--display);font-weight:900;font-size:30px;line-height:1;padding-top:22px}
+  .compare thead th small{display:block;font-family:var(--body);font-weight:500;font-size:13px;color:var(--smoke);margin-top:6px}
+  .compare tbody th{font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--smoke);width:22%}
+  .bar{display:block;height:6px;background:var(--line);margin-top:8px;max-width:180px}
+  .bar i{display:block;height:100%;background:var(--sun)}
+  .compare td.price{font-family:var(--display);font-weight:900;font-size:34px;line-height:1}
+
+  /* law */
+  .law{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(28px,5vw,80px);align-items:center}
+  .car{width:100%;height:auto;display:block}
+  .law ul{list-style:none;border-top:1.5px solid var(--ink)}
+  .law li{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .law li b{font-family:var(--display);font-weight:900;font-size:26px;line-height:1}
+  .law li .rule{color:#33383E}
+  .law li .mono{font-size:13px;color:var(--smoke)}
+
+  /* cure */
+  .cure{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1.5px solid var(--ink)}
+  .cure > div{padding:20px 20px 0 0;min-width:0}
+  .cure > div + div{padding-left:20px;border-left:1px solid var(--line)}
+  .cure .when{font-family:var(--display);font-weight:900;font-size:34px;line-height:1}
+  .cure p{color:#33383E;font-size:15.5px;margin-top:8px}
+
+  footer{border-top:1px solid var(--line)}
+  footer .wrap{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,1fr));gap:28px;padding-block:48px;font-size:15px;color:#33383E}
+  footer h4{font-family:var(--mono);font-weight:400;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--smoke);margin-bottom:8px}
+
+  @media (max-width:1000px){
+    .hero,.law,.head{grid-template-columns:minmax(0,1fr)}
+    .cure{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .cure > div:nth-child(3){padding-left:0;border-left:0}
+    footer .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
+    header.nav nav{display:none}
+    header.nav .btn{margin-left:auto}
+  }
+  @media (max-width:600px){
+    .controls{grid-template-columns:minmax(0,1fr)}
+    .readouts{grid-template-columns:minmax(0,1fr)}
+    .readouts > div + div{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:12px}
+    .cure{grid-template-columns:minmax(0,1fr)}
+    .cure > div + div{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:16px}
+    .law li{grid-template-columns:minmax(0,1fr)}
+    footer .wrap{grid-template-columns:minmax(0,1fr)}
+    .sw{flex-basis:108px;height:280px}
+  }
+  @media (prefers-reduced-motion:reduce){.film,.sw{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="heatbar"><div class="wrap">
+  <span>PHOENIX TODAY <b>112°F</b></span><span>UV INDEX <b>11 · EXTREME</b></span><span>DASHBOARD TEMP, UNTINTED, 1 HR <b>~165°F</b></span><span>SAME-DAY INSTALLS BEFORE NOON</span>
+</div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="logo" href="#"><i></i><span>Shade Theory</span></a>
+  <nav><a href="#try">Try a shade</a><a href="#films">Films</a><a href="#law">Arizona law</a><a href="#cure">Aftercare</a></nav>
+  <a class="btn" href="#">Get a quote</a>
+</div></header>
+
+<main>
+<div class="wrap hero" id="try">
+  <div>
+    <div class="lbl">Automotive window film · Phoenix, AZ</div>
+    <h1 style="margin-top:18px">It's <span class="deg">112°</span> out. Your car doesn't need to know.</h1>
+    <p>We install carbon and ceramic window film cut on a plotter for your exact make and model. No razor on your glass, no seams in the back window. Most cars are done in under three hours.</p>
+    <div class="ctas"><a class="btn" href="#">Book an install</a><a class="btn line" href="#films">Compare films</a></div>
+  </div>
+
+  <div class="demo">
+    <div class="window" aria-hidden="true">
+      <svg class="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7DB6E3"/><stop offset=".7" stop-color="#D9E9F2"/></linearGradient>
+          <radialGradient id="sun" cx="0.78" cy="0.2" r="0.32"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".12" stop-color="#FFF4D6"/><stop offset=".5" stop-color="#FFE3A3" stop-opacity=".35"/><stop offset="1" stop-color="#FFE3A3" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect width="1600" height="900" fill="url(#sky)"/>
+        <rect width="1600" height="900" fill="url(#sun)"/>
+        <path d="M0 560 L180 470 L310 520 L470 420 L640 500 L760 460 L940 540 L1100 450 L1260 510 L1430 440 L1600 500 L1600 900 L0 900Z" fill="#B88A6A"/>
+        <path d="M0 640 L240 590 L520 630 L820 580 L1120 640 L1400 600 L1600 630 L1600 900 L0 900Z" fill="#D6AB7E"/>
+        <rect y="760" width="1600" height="140" fill="#E8C79E"/>
+        <g fill="#4E6B3F">
+          <path d="M300 760 v-230 a26 26 0 0 1 52 0 v230z M300 640 h-46 v-60 a20 20 0 0 1 40 0 v30 h6z M352 610 h44 v-70 a20 20 0 0 1 40 0 v100 h-84z"/>
+          <path d="M1180 780 v-170 a20 20 0 0 1 40 0 v170z M1180 690 h-34 v-44 a16 16 0 0 1 32 0 v20 h2z"/>
+        </g>
+        <rect y="820" width="1600" height="6" fill="#C9A47A"/>
+      </svg>
+      <div class="film" id="film"></div>
+      <div class="frame-tag" id="tag">35% VLT · CERAMIC</div>
+    </div>
+
+    <div class="controls">
+      <div class="slider-wrap">
+        <label for="vlt"><span class="lbl">Visible light through the glass</span><span class="vlt-read mono" id="vltRead" style="font-family:var(--display)">35%</span></label>
+        <input id="vlt" type="range" min="5" max="70" step="1" value="35">
+        <div class="ticks"><span>5 · limo</span><span>20</span><span>35</span><span>50</span><span>70 · near clear</span></div>
+      </div>
+      <div class="films" role="group" aria-label="Film type">
+        <button type="button" id="f-carbon" data-f="carbon" aria-pressed="false">Carbon</button>
+        <button type="button" id="f-ceramic" data-f="ceramic" aria-pressed="true">Ceramic</button>
+        <button type="button" id="f-ir" data-f="ir" aria-pressed="false">IR Ceramic</button>
+      </div>
+    </div>
+
+    <div class="readouts">
+      <div><div class="lbl">Total solar energy rejected</div><div class="v mono" id="tser" style="font-family:var(--display)">52%</div><div class="s">TSER, how much of the sun's heat stays outside</div></div>
+      <div><div class="lbl">Cabin after 1 hr parked</div><div class="v" id="cabin">128°F</div><div class="s">vs ~150°F with factory glass</div></div>
+      <div><div class="lbl">Front doors in Arizona</div><div class="v" id="legal">Legal</div><div class="s" id="legalNote">AZ requires more than 33% VLT up front</div></div>
+    </div>
+    <p class="fine">Readings are typical published figures for each film line on clear factory glass. Factory-tinted rear glass already sits around 70–80%, so the final number on those windows is darker than the film's rating. We meter every car before it leaves.</p>
+  </div>
+</div>
+
+<section class="book" id="swatches">
+  <div class="wrap">
+    <div class="head">
+      <h2>The swatch book</h2>
+      <p>These are the six shades we stock in every film line. Tap one to load it into the window above. Bring your car by and we'll hold the real samples against your glass in daylight.</p>
+    </div>
+    <div class="swatches" id="sws"></div>
+  </div>
+</section>
+
+<section class="wrap" id="films">
+  <div class="head">
+    <h2>Three films, priced for a 4-door sedan</h2>
+    <p>Darkness and heat rejection are separate things. A 70% IR ceramic film can keep out more heat than a 5% carbon film, which is why it's the film we put on most commuter cars.</p>
+  </div>
+  <div class="compare">
+    <table>
+      <thead><tr><th></th><th>Carbon<small>Matte finish, no signal interference</small></th><th>Ceramic<small>Nano-ceramic, our most popular</small></th><th>IR Ceramic<small>Highest heat rejection we sell</small></th></tr></thead>
+      <tbody>
+        <tr><th>Heat rejected (TSER)</th><td>up to 46%<span class="bar"><i style="width:46%"></i></span></td><td>up to 58%<span class="bar"><i style="width:58%"></i></span></td><td>up to 69%<span class="bar"><i style="width:69%"></i></span></td></tr>
+        <tr><th>Infrared rejected</th><td>45–58%</td><td>80–88%</td><td>up to 98%</td></tr>
+        <tr><th>UV blocked</th><td>99%</td><td>99%</td><td>99%</td></tr>
+        <tr><th>Shades</th><td class="mono">5 · 15 · 20 · 35 · 50</td><td class="mono">5 · 15 · 20 · 35 · 50 · 70</td><td class="mono">5 · 15 · 20 · 35 · 50 · 70</td></tr>
+        <tr><th>Warranty</th><td>Lifetime, no fade to purple</td><td>Lifetime, transferable</td><td>Lifetime, transferable</td></tr>
+        <tr><th>Sedan, sides + back</th><td class="price">$249</td><td class="price">$389</td><td class="price">$529</td></tr>
+        <tr><th>Add windshield (70% IR)</th><td>—</td><td>+$180</td><td>+$220</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="wrap" id="law" style="padding-top:0">
+  <div class="law">
+    <svg class="car" viewBox="0 0 520 220" role="img" aria-label="Sedan side view with front door glass light, rear glass dark, and a strip above the windshield's AS-1 line">
+      <path d="M30 160 Q30 128 70 120 L150 112 L205 68 Q218 58 238 58 L360 58 Q382 58 396 72 L432 112 L476 120 Q500 126 500 160 L500 172 L30 172Z" fill="#2B3036"/>
+      <path d="M214 74 L250 70 L252 112 L166 112 Z" fill="#7F8A94" opacity=".7"/>
+      <path d="M260 70 L352 70 Q366 70 376 82 L402 112 L262 112 Z" fill="#0D1013"/>
+      <path d="M208 64 L232 60 L206 74Z" fill="#0D1013"/>
+      <circle cx="120" cy="172" r="30" fill="#121417"/><circle cx="120" cy="172" r="13" fill="#9AA1A8"/>
+      <circle cx="410" cy="172" r="30" fill="#121417"/><circle cx="410" cy="172" r="13" fill="#9AA1A8"/>
+      <g font-family="DM Mono, monospace" font-size="11" fill="#5B626A">
+        <text x="168" y="40">AS-1 strip</text><line x1="200" y1="44" x2="214" y2="62" stroke="#5B626A"/>
+        <text x="186" y="140" fill="#F5F6F6">&gt;33%</text>
+        <text x="300" y="140" fill="#F5F6F6">any</text>
+      </g>
+    </svg>
+    <div>
+      <div class="head" style="grid-template-columns:minmax(0,1fr);margin-bottom:24px">
+        <h2>What's legal in Arizona</h2>
+      </div>
+      <ul>
+        <li><b>Windshield</b><span class="rule">Non-reflective film above the AS-1 line only.</span><span class="mono">ARS 28-959.01</span></li>
+        <li><b>Front doors</b><span class="rule">Must let in more than 33% of light. We install 35% or lighter.</span><span class="mono">&gt;33% VLT</span></li>
+        <li><b>Rear doors</b><span class="rule">Any darkness, as long as the car has both side mirrors.</span><span class="mono">any</span></li>
+        <li><b>Back glass</b><span class="rule">Any darkness, same mirror rule.</span><span class="mono">any</span></li>
+        <li><b>Colour</b><span class="rule">No red or amber film, and reflectivity under 35%.</span><span class="mono">&lt;35% refl.</span></li>
+      </ul>
+      <p class="fine">Medical exemption for darker front glass? Bring your MVD form and we'll match it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="cure" style="padding-top:0">
+  <div class="head">
+    <h2>After you drive away</h2>
+    <p>Film is installed wet. The water has to work its way out through the film, and the sun does most of that for you here.</p>
+  </div>
+  <div class="cure">
+    <div><div class="when">Day 0–3</div><p>Keep the windows rolled up. The bottom edge is still setting and can peel if it catches the door seal.</p></div>
+    <div><div class="when">Day 3–7</div><p>Small hazy patches or water bubbles are normal. Leave them alone. They'll bake out in the sun.</p></div>
+    <div><div class="when">Day 7+</div><p>Clean with soap and water or an ammonia-free cleaner and a microfibre towel. No blades.</p></div>
+    <div><div class="when">Day 30</div><p>Still seeing a bubble? Come back. We'll fix it free, no appointment needed.</p></div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <div><a class="logo" href="#"><i></i><span>Shade Theory</span></a><p style="margin-top:12px;max-width:34ch">Window film for cars, trucks and the occasional Airstream. Installed in a climate-controlled bay since 2016.</p></div>
+  <div><h4>Shop</h4>2918 E Indian School Rd<br>Phoenix, AZ 85016</div>
+  <div><h4>Hours</h4>Mon–Fri 7 AM–5 PM<br>Sat 8 AM–1 PM</div>
+  <div><h4>Contact</h4><span class="mono">(602) 555-0148</span><br>hello@shadetheory.example</div>
+</div></footer>
+
+<script>
+  const films={carbon:{name:'CARBON',base:22,gain:28},ceramic:{name:'CERAMIC',base:32,gain:28},ir:{name:'IR CERAMIC',base:48,gain:23}};
+  let film='ceramic';
+  const $=id=>document.getElementById(id);
+  const vlt=$('vlt');
+  function update(){
+    const v=+vlt.value, f=films[film];
+    const dark=1-v/100;
+    $('film').style.opacity=(dark*0.97).toFixed(3);
+    $('vltRead').textContent=v+'%';
+    const tser=Math.round(f.base+f.gain*dark);
+    $('tser').textContent=tser+'%';
+    $('cabin').textContent=Math.round(150-tser*0.42)+'°F';
+    const ok=v>33;
+    const L=$('legal');
+    L.textContent=ok?'Legal':'Too dark';
+    L.className='v '+(ok?'legal-yes':'legal-no');
+    $('legalNote').textContent=ok?'AZ requires more than 33% VLT up front':'Fine for rear doors and back glass only';
+    $('tag').textContent=v+'% VLT · '+f.name;
+  }
+  vlt.addEventListener('input',update);
+  document.querySelectorAll('.films button').forEach(b=>b.addEventListener('click',()=>{
+    film=b.dataset.f;
+    document.querySelectorAll('.films button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    update();
+  }));
+  // swatch book
+  const shades=[[5,'Limo','Rear only'],[15,'Dark','Rear only'],[20,'Privacy','Rear only'],[35,'Classic','Legal all sides'],[50,'Light','Legal all sides'],[70,'Clear','Legal all sides']];
+  $('sws').innerHTML=shades.map(([p,n,l])=>{
+    const a=1-p/100, c=Math.round(13+ (200-13)*(p/70)*0.85);
+    const bg=`rgb(${c},${c+3},${c+6})`, fg=p>=50?'#121417':'#F5F6F6';
+    return `<button class="sw" id="sw-${p}" type="button" data-v="${p}" style="background:${bg};color:${fg}" aria-label="Load ${p}% shade"><span class="pct">${p}</span><span class="meta">${n.toUpperCase()}<br>${p}% VLT<br>${l}</span><span class="hole"></span></button>`;
+  }).join('');
+  $('sws').addEventListener('click',e=>{
+    const b=e.target.closest('.sw'); if(!b)return;
+    vlt.value=b.dataset.v; update();
+    document.getElementById('try').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  });
+  update();
+</script>
+</body>
+</html>

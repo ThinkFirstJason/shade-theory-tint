@@ -52,28 +52,37 @@ Darker Grotesque's tall, tight shapes at weight 900 are the brand's voice. Use i
 
 ## 5. Signature components
 
-- **Tint window demo (hero):** a 16:9 desert scene (sky gradient, sun bloom, layered mesas, saguaro silhouettes) clipped to a car side-window shape (`clip-path: polygon(10% 0,100% 0,100% 100%,0 100%,0 34%)`). A `--film` overlay sets opacity from VLT and has a faint diagonal glass reflection. Controls below it:
+- **Tint preview (hero):** a 3:2 photo of a sunlit desert road. A `--film` overlay on top sets its opacity from VLT, so the photo visibly darkens as the shade changes, and a small mono tag in the corner shows the current shade. Controls below it:
   - A VLT range slider from 5 to 70%. The track is a dark-to-light gradient and the thumb is a square amber block. Tick labels in mono read "5 · limo" through "70 · near clear".
   - A segmented control for film type (Carbon / Ceramic / IR Ceramic) with a 1.5px ink border. The selected option is filled ink.
   - Three readouts under an ink rule: TSER %, cabin °F after one hour, and the Arizona front-door legal status in green or red.
   - Fine print explaining that the figures are typical.
-- **Swatch book:** a full-bleed ink section with six overlapping tall swatch strips (5, 15, 20, 35, 50, 70). Each strip shows a huge number, mono meta (name, VLT, legality) and a punched rivet hole. Strips lift on hover. Clicking one loads that shade into the demo.
+- **Swatch book:** a full-bleed ink section with six flat swatch chips in a row (5, 15, 20, 35, 50, 70), each filled with that shade's grey. Each chip shows a huge number and mono meta (name, VLT, legality). The border turns amber on hover. Clicking one loads that shade into the hero preview.
+- **Films photo:** a 21:7 close-up of tinted side glass above the comparison table.
 - **Film comparison table:** columns for Carbon, Ceramic and IR Ceramic, with headers in display type and a sub-caption. Rows have mono uppercase labels. The heat-rejection row includes thin amber bar graphs. Prices are in display type.
-- **Law diagram:** a flat sedan side-view SVG. The front door glass is light, the rear glass is film-dark, the AS-1 strip is called out, and the VLT rules are labelled on the body. Beside it is a ruled list: zone, rule and statute/threshold in mono.
+- **Law block:** a 4:3 photo of a car with dark rear glass and a mono caption underneath, beside a ruled list: zone, rule and statute/threshold in mono.
 - **Cure timeline:** four columns divided by hairlines (Day 0–3, 3–7, 7+, 30), each with a big display label and short instructions.
 
-## 6. Motion
+## 6. Photography
 
-- Only the film overlay fades (0.25s) as the slider moves, and swatches lift on hover. Both are disabled under reduced-motion.
+- Bright, hard-sun daylight: desert roads, sun on glass, reflections in tinted windows. The light should feel hot.
+- Car photos are close and tight on the glass so the tint itself is the subject, not the car brand.
+- Square corners, no borders, no overlays. The one exception is the functional tint overlay on the hero preview.
+- Never use illustrated scenes or drawn car diagrams.
+- Source: Unsplash (free licence). Current files: `img/view.jpg`, `img/glass.jpg`, `img/tinted-car.jpg`.
+
+## 7. Motion
+
+- Only the film overlay fades (0.25s) as the slider moves. It's disabled under reduced-motion.
 - The interactive demo is the moment. Don't add any other entrance animation.
 
-## 7. Voice
+## 8. Voice
 
 - Plain and knowledgeable, like a tint installer explaining it at the counter: "Darkness and heat rejection are separate things."
 - Cite the actual law (ARS 28-959.01, >33% VLT front doors) and real cure behaviour.
 - Use concrete Phoenix details: 112°F, UV 11, steering wheel heat.
 
-## 8. Don'ts
+## 9. Don'ts
 
 - No "luxury black" site with gold accents.
 - No glassmorphism or blur cards. Real tint isn't frosted.

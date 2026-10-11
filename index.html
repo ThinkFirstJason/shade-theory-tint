@@ -54,10 +54,9 @@
 
   /* window demo */
   .demo{min-width:0}
-  .window{position:relative;aspect-ratio:16/9;max-width:100%;clip-path:polygon(10% 0,100% 0,100% 100%,0 100%,0 34%);background:#9FCBEA;overflow:hidden}
-  .window svg.scene{position:absolute;inset:0;width:100%;height:100%}
+  .window{position:relative;aspect-ratio:3/2;max-width:100%;overflow:hidden;background:var(--ink)}
+  .window img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   .film{position:absolute;inset:0;background:var(--film);transition:opacity .25s ease}
-  .film::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.14) 48%,transparent 56%)}
   .frame-tag{position:absolute;right:14px;bottom:12px;font-family:var(--mono);font-size:11px;color:#fff;background:rgba(0,0,0,.35);padding:4px 8px;letter-spacing:.06em}
   .controls{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 28px;margin-top:22px;align-items:end}
   .slider-wrap label{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
@@ -91,13 +90,12 @@
   .book .head p{color:#B9BEC3}
   .book .lbl{color:#8E959C}
   .swatches{display:flex;align-items:flex-end;gap:0;overflow-x:auto;padding-bottom:8px}
-  .sw{all:unset;cursor:pointer;flex:1 0 128px;height:340px;position:relative;margin-left:-18px;transform-origin:bottom center;transition:transform .2s ease;border:1px solid rgba(255,255,255,.18);display:flex;flex-direction:column;justify-content:space-between;padding:16px 14px 16px 30px}
-  .sw:first-child{margin-left:0}
-  .sw:hover,.sw:focus-visible{transform:translateY(-14px)}
+  .swatches{gap:8px}
+  .sw{all:unset;cursor:pointer;flex:1 0 128px;height:220px;position:relative;border:1px solid rgba(255,255,255,.18);display:flex;flex-direction:column;justify-content:space-between;padding:16px 14px}
+  .sw:hover{border-color:var(--sun)}
   .sw:focus-visible{outline:2px solid var(--sun)}
   .sw .pct{font-family:var(--display);font-weight:900;font-size:58px;line-height:.8}
   .sw .meta{font-family:var(--mono);font-size:11px;line-height:1.7;opacity:.9}
-  .sw .hole{position:absolute;left:10px;bottom:16px;width:10px;height:10px;border-radius:50%;background:var(--ink);box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}
 
   /* compare */
   .compare{overflow-x:auto;border-top:1.5px solid var(--ink)}
@@ -112,7 +110,11 @@
 
   /* law */
   .law{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(28px,5vw,80px);align-items:center}
-  .car{width:100%;height:auto;display:block}
+  .law-photo{margin:0;min-width:0}
+  .law-photo img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+  .law-photo figcaption{margin-top:10px}
+  .films-photo{margin:0 0 40px;aspect-ratio:21/7;max-width:100%;overflow:hidden}
+  .films-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 55%}
   .law ul{list-style:none;border-top:1.5px solid var(--ink)}
   .law li{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);align-items:baseline}
   .law li b{font-family:var(--display);font-weight:900;font-size:26px;line-height:1}
@@ -146,9 +148,9 @@
     .cure > div + div{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:16px}
     .law li{grid-template-columns:minmax(0,1fr)}
     footer .wrap{grid-template-columns:minmax(0,1fr)}
-    .sw{flex-basis:108px;height:280px}
+    .sw{flex-basis:108px;height:180px}
   }
-  @media (prefers-reduced-motion:reduce){.film,.sw{transition:none}}
+  @media (prefers-reduced-motion:reduce){.film{transition:none}}
 </style>
 </head>
 <body>
@@ -173,23 +175,8 @@
   </div>
 
   <div class="demo">
-    <div class="window" aria-hidden="true">
-      <svg class="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7DB6E3"/><stop offset=".7" stop-color="#D9E9F2"/></linearGradient>
-          <radialGradient id="sun" cx="0.78" cy="0.2" r="0.32"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".12" stop-color="#FFF4D6"/><stop offset=".5" stop-color="#FFE3A3" stop-opacity=".35"/><stop offset="1" stop-color="#FFE3A3" stop-opacity="0"/></radialGradient>
-        </defs>
-        <rect width="1600" height="900" fill="url(#sky)"/>
-        <rect width="1600" height="900" fill="url(#sun)"/>
-        <path d="M0 560 L180 470 L310 520 L470 420 L640 500 L760 460 L940 540 L1100 450 L1260 510 L1430 440 L1600 500 L1600 900 L0 900Z" fill="#B88A6A"/>
-        <path d="M0 640 L240 590 L520 630 L820 580 L1120 640 L1400 600 L1600 630 L1600 900 L0 900Z" fill="#D6AB7E"/>
-        <rect y="760" width="1600" height="140" fill="#E8C79E"/>
-        <g fill="#4E6B3F">
-          <path d="M300 760 v-230 a26 26 0 0 1 52 0 v230z M300 640 h-46 v-60 a20 20 0 0 1 40 0 v30 h6z M352 610 h44 v-70 a20 20 0 0 1 40 0 v100 h-84z"/>
-          <path d="M1180 780 v-170 a20 20 0 0 1 40 0 v170z M1180 690 h-34 v-44 a16 16 0 0 1 32 0 v20 h2z"/>
-        </g>
-        <rect y="820" width="1600" height="6" fill="#C9A47A"/>
-      </svg>
+    <div class="window" role="img" aria-label="Desert road seen through glass with the selected tint shade applied">
+      <img src="img/view.jpg" alt="" width="1800" height="1197">
       <div class="film" id="film"></div>
       <div class="frame-tag" id="tag">35% VLT · CERAMIC</div>
     </div>
@@ -220,7 +207,7 @@
   <div class="wrap">
     <div class="head">
       <h2>The swatch book</h2>
-      <p>These are the six shades we stock in every film line. Tap one to load it into the window above. Bring your car by and we'll hold the real samples against your glass in daylight.</p>
+      <p>These are the six shades we stock in every film line. Tap one to load it into the photo above. Bring your car by and we'll hold the real samples against your glass in daylight.</p>
     </div>
     <div class="swatches" id="sws"></div>
   </div>
@@ -231,6 +218,7 @@
     <h2>Three films, priced for a 4-door sedan</h2>
     <p>Darkness and heat rejection are separate things. A 70% IR ceramic film can keep out more heat than a 5% carbon film, which is why it's the film we put on most commuter cars.</p>
   </div>
+  <figure class="films-photo"><img src="img/glass.jpg" alt="Close-up of tinted side glass and mirror on a blue car" width="1800" height="1200"></figure>
   <div class="compare">
     <table>
       <thead><tr><th></th><th>Carbon<small>Matte finish, no signal interference</small></th><th>Ceramic<small>Nano-ceramic, our most popular</small></th><th>IR Ceramic<small>Highest heat rejection we sell</small></th></tr></thead>
@@ -249,19 +237,10 @@
 
 <section class="wrap" id="law" style="padding-top:0">
   <div class="law">
-    <svg class="car" viewBox="0 0 520 220" role="img" aria-label="Sedan side view with front door glass light, rear glass dark, and a strip above the windshield's AS-1 line">
-      <path d="M30 160 Q30 128 70 120 L150 112 L205 68 Q218 58 238 58 L360 58 Q382 58 396 72 L432 112 L476 120 Q500 126 500 160 L500 172 L30 172Z" fill="#2B3036"/>
-      <path d="M214 74 L250 70 L252 112 L166 112 Z" fill="#7F8A94" opacity=".7"/>
-      <path d="M260 70 L352 70 Q366 70 376 82 L402 112 L262 112 Z" fill="#0D1013"/>
-      <path d="M208 64 L232 60 L206 74Z" fill="#0D1013"/>
-      <circle cx="120" cy="172" r="30" fill="#121417"/><circle cx="120" cy="172" r="13" fill="#9AA1A8"/>
-      <circle cx="410" cy="172" r="30" fill="#121417"/><circle cx="410" cy="172" r="13" fill="#9AA1A8"/>
-      <g font-family="DM Mono, monospace" font-size="11" fill="#5B626A">
-        <text x="168" y="40">AS-1 strip</text><line x1="200" y1="44" x2="214" y2="62" stroke="#5B626A"/>
-        <text x="186" y="140" fill="#F5F6F6">&gt;33%</text>
-        <text x="300" y="140" fill="#F5F6F6">any</text>
-      </g>
-    </svg>
+    <figure class="law-photo">
+      <img src="img/tinted-car.jpg" alt="White hatchback with dark tinted rear side glass" width="1800" height="1200">
+      <figcaption class="lbl">Rear glass can go as dark as you like in Arizona. The front doors can't.</figcaption>
+    </figure>
     <div>
       <div class="head" style="grid-template-columns:minmax(0,1fr);margin-bottom:24px">
         <h2>What's legal in Arizona</h2>
@@ -330,7 +309,7 @@
   $('sws').innerHTML=shades.map(([p,n,l])=>{
     const a=1-p/100, c=Math.round(13+ (200-13)*(p/70)*0.85);
     const bg=`rgb(${c},${c+3},${c+6})`, fg=p>=50?'#121417':'#F5F6F6';
-    return `<button class="sw" id="sw-${p}" type="button" data-v="${p}" style="background:${bg};color:${fg}" aria-label="Load ${p}% shade"><span class="pct">${p}</span><span class="meta">${n.toUpperCase()}<br>${p}% VLT<br>${l}</span><span class="hole"></span></button>`;
+    return `<button class="sw" id="sw-${p}" type="button" data-v="${p}" style="background:${bg};color:${fg}" aria-label="Load ${p}% shade"><span class="pct">${p}</span><span class="meta">${n.toUpperCase()}<br>${p}% VLT<br>${l}</span></button>`;
   }).join('');
   $('sws').addEventListener('click',e=>{
     const b=e.target.closest('.sw'); if(!b)return;
